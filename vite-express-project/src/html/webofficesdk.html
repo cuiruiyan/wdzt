@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WPS WebOffice Demo</title>
+  <style>
+    #weboffice {
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="weboffice">
+
+  </div>
+  <script src="./web-office-sdk-v1.1.19.umd.js"></script>
+  <script>
+    function sdk(url) {
+      // 获取 token 函数
+      window.onload = async function () {
+
+        const refreshToken = () => {
+          // 自身业务处理...
+          const sdk = '1'
+          // 可以返回 Promise 或者 return { token, timeout }
+          return Promise.resolve({
+            token: "yourToken", // 必需：你需要设置的 token
+            timeout: 10 * 60 * 1000, //  必需：token 超时时间，单位为毫秒，示例为 10 分钟
+          });
+        };
+
+        const jssdk = WebOfficeSDK.config({
+          url: url + '&_w_tokentype=1', // 该地址需要对接方服务端提供，形如 https://wwo.wps.cn/office/p/xxx
+          mount: document.querySelector('#weboffice'),
+        })
+
+        console.log('1111111')
+
+        // jssdk.ApiEvent.AddApiEventListener('fileOpen', (data) => {
+        //   console.log('打开文档成功: ', data)
+        // })
+        jssdk.setToken({
+          token: 'cuiruiyan', // 根据自身的业务需求，通过异步请求或者模板输出的方式，取得 token
+          timeout: 10 * 60 * 1000, // token 超时时间，可配合 refreshToken 配置函数使用，在超时前刷新 token
+        });
+
+        //await jssdk.ready();
+
+        // const totalPages = await jssdk.Application.ActiveDocument.Range.Information(
+        //   jssdk.Application.Enum.WdInformation.wdNumberOfPagesInDocument
+        // );
+      }
+    }
+
+    const filelike = localStorage.getItem('link')
+    if (filelike != null) {
+      sdk(filelike)
+    } else {
+      console.log('localStorage 为空')
+    }
+  </script>
+</body>
+
+</html>

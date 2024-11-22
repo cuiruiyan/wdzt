@@ -1,0 +1,26 @@
+select {
+  padding: 4px;
+  font-size: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  color: black;
+}
+
+select:focus {
+  outline: none;
+  border: 1px solid #007BFF;
+}
+
+#popupDiv {
+  display: none;
+  /* 初始状态下隐藏 */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border: 1px solid black;
+  padding: 20px;
+  z-index: 1000;
+}
